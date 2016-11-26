@@ -10,8 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 
 import java.sql.SQLException;
 
-import objects.Film;
-import objects.Glumac;
+import objects.Beleska;
 
 /**
  * Created by Živko on 2016-11-17.
@@ -19,11 +18,11 @@ import objects.Glumac;
 
 public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
 
-    public static final String BASENAME = "glumacFilm.db";
-    public static final int VERSION = 2;
+    public static final String BASENAME = "beleske.db";
+    public static final int VERSION = 1;
 
-    Dao<Glumac, Integer> glumacDao = null;
-    Dao<Film, Integer> filmDao = null;
+    Dao<Beleska, Integer> beleskaDao = null;
+
 
     public DataBaseHelper(Context context) {
         super(context, BASENAME, null, VERSION);
@@ -33,8 +32,8 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource) {
 
         try {
-            TableUtils.createTable(connectionSource, Glumac.class);
-            TableUtils.createTable(connectionSource, Film.class);
+            TableUtils.createTable(connectionSource, Beleska.class);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -43,34 +42,28 @@ public class DataBaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion) {
         try {
-            TableUtils.dropTable(connectionSource, Glumac.class, true);
-            TableUtils.dropTable(connectionSource, Film.class, true);
+            TableUtils.dropTable(connectionSource, Beleska.class, true);
+
             onCreate(database, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public Dao<Glumac, Integer> getGlumacDao() throws SQLException {
-        if (glumacDao == null) {
-            glumacDao = getDao(Glumac.class);
+    public Dao<Beleska, Integer> getBeleskaDao() throws SQLException {
+        if (beleskaDao == null) {
+            beleskaDao = getDao(Beleska.class);
         }
 
-        return glumacDao;
+        return beleskaDao;
     }
 
-    public Dao<Film, Integer> getFilmDAO() throws SQLException {
-        if (filmDao == null) {
-            filmDao = getDao(Film.class);
-        }
 
-        return filmDao;
-    }
 
     @Override
     public void close() {
-        glumacDao = null;
-        filmDao = null;
+        beleskaDao = null;
+
 
         super.close();
     }

@@ -5,14 +5,17 @@
 
 
     <item android:id="@+id/action_add"
-        android:title="@string/action_add"
-        app:showAsAction="always" />
+        android:title="add_beleska"
+        android:icon="@drawable/ic_action_add"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/settings"
         android:title="@string/settings"
-        app:showAsAction="collapseActionView" />
+        android:icon="@drawable/ic_action_settings"
+        app:showAsAction="ifRoom" />
 
     <item android:id="@+id/About"
         android:title="@string/about"
-        app:showAsAction="collapseActionView" />
+        android:icon="@drawable/ic_action_about"
+        app:showAsAction="ifRoom" />
 </menu>

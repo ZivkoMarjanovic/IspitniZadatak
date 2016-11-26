@@ -8,10 +8,7 @@
         android:icon="@android:drawable/ic_menu_delete"
         app:showAsAction="ifRoom" />
 
-    <item android:id="@+id/add_film"
-        android:title="@string/add_film"
-        android:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="ifRoom" />
+
 
     <item android:id="@+id/edit"
         android:title="@string/edit"

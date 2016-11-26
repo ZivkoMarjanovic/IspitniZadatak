@@ -28,41 +28,41 @@ import java.sql.SQLException;
 import java.util.List;
 
 import db.DataBaseHelper;
-import objects.Glumac;
+import objects.Beleska;
 
 public class ListActivity extends AppCompatActivity {
 
     DataBaseHelper dataBaseHelper;
-    ListView listaGlumaca;
-    List<Glumac> glumci;
+    ListView listaBeleski;
+    List<Beleska> beleske;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.lista_glumaca);
+        setContentView(R.layout.lista_beleski);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
-        toolbar.setTitle("Actors");
+        toolbar.setTitle("Beleske");
         toolbar.setBackgroundColor(getResources().getColor(R.color.toolbar));
         setSupportActionBar(toolbar);
 
-        listaGlumaca = (ListView) findViewById(R.id.listaGlumaca);
+        listaBeleski = (ListView) findViewById(R.id.listaGlumaca);
 
         try {
-            glumci = getDatabaseHelper().getGlumacDao().queryForAll();
+            beleske = getDatabaseHelper().getBeleskaDao().queryForAll();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (glumci != null) {
+        if (beleske != null) {
 
-            ListAdapter adapter = new ArrayAdapter<Glumac>(this, R.layout.list_item, glumci);
-            listaGlumaca.setAdapter(adapter);
-            listaGlumaca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            ListAdapter adapter = new ArrayAdapter<Beleska>(this, R.layout.list_item, beleske);
+            listaBeleski.setAdapter(adapter);
+            listaBeleski.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Glumac glumac = (Glumac) listaGlumaca.getItemAtPosition(i);
+                    Beleska beleska = (Beleska) listaBeleski.getItemAtPosition(i);
                     Intent intent = new Intent(ListActivity.this, DeatailActivity.class);
-                    intent.putExtra("POSITION", glumac.getId());
+                    intent.putExtra("POSITION", beleska.getId());
                     startActivity(intent);
                 }
             });
@@ -93,52 +93,8 @@ public class ListActivity extends AppCompatActivity {
 
             case R.id.action_add:
 
-                final Dialog dialog = new Dialog(this);
-                dialog.setTitle("Enter new Glumac");
-                dialog.setContentView(R.layout.dialog_add_glumac);
-
-                final EditText imePrezime = (EditText) dialog.findViewById(R.id.imePrezime);
-                final EditText rodjen = (EditText) dialog.findViewById(R.id.rodjen);
-                final EditText ocena = (EditText) dialog.findViewById(R.id.ocena);
-                final EditText biografija = (EditText) dialog.findViewById(R.id.biografija);
-
-
-                Button ok = (Button) dialog.findViewById(R.id.save);
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Glumac newGlumac = new Glumac();
-
-                        newGlumac.setImePrezime(imePrezime.getText().toString());
-                        newGlumac.setRodjen(rodjen.getText().toString());
-                        newGlumac.setOcena(Integer.parseInt(ocena.getText().toString()));
-                        newGlumac.setBigrafija(biografija.getText().toString());
-
-                        try {
-                            getDatabaseHelper().getGlumacDao().create(newGlumac);
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                        refreshGlumac();
-
-                        showMessage("Napravljen je novi glumac", newGlumac.getImePrezime());
-
-                        dialog.dismiss();
-
-                    }
-                });
-
-                Button cancel = (Button) dialog.findViewById(R.id.cancel);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-
-                });
-                dialog.show();
-                if( dialog.isShowing()) {dialog.getWindow().setBackgroundDrawableResource(R.color.filmDialog);}
+                Intent intent1 = new Intent(this, Add_beleska.class);
+                startActivity(intent1);
                 break;
         }
 
@@ -157,12 +113,12 @@ public class ListActivity extends AppCompatActivity {
         ListView listview = (ListView) findViewById(R.id.listaGlumaca);
 
         if (listview != null) {
-            ArrayAdapter<Glumac> adapter = (ArrayAdapter<Glumac>) listview.getAdapter();
+            ArrayAdapter<Beleska> adapter = (ArrayAdapter<Beleska>) listview.getAdapter();
 
             if (adapter != null) {
                 try {
                     adapter.clear();
-                    List<Glumac> list = getDatabaseHelper().getGlumacDao().queryForAll();
+                    List<Beleska> list = getDatabaseHelper().getBeleskaDao().queryForAll();
 
                     adapter.addAll(list);
 
